@@ -221,7 +221,11 @@ public class MBeanServerCollector implements Collector, Closeable {
 	}
 
 	Object getAttribute(ObjectName name, String attribute) throws JmxMBeanServerQueryException {
-		return MBeanServerUtils.getAttribute(mBeanServer, name, attribute);
+		try {
+			return MBeanServerUtils.getAttribute(mBeanServer, name, attribute);
+		} catch (JmxMBeanServerQueryException e) {
+			return 0D;
+		}
 	}
 
 	public Collection<Chart> collectValues() {

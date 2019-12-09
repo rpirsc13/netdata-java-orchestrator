@@ -153,7 +153,7 @@ public class MBeanServerCollector implements Collector, Closeable {
 					// Initialize Query Info if needed
 					mBeanQuery = getMBeanQueryForName(objectName, dimensionConfig.getValue())
 							.orElse(addNewMBeanQuery(objectName, dimensionConfig.getValue()));
-				} catch (JmxMBeanServerQueryException e) {
+				} catch (JmxMBeanServerQueryException | NullPointerException e) {
 					log.warning(LoggingUtils.buildMessage("Could not query one dimension. Skipping...", e));
 					continue;
 				}
@@ -163,7 +163,7 @@ public class MBeanServerCollector implements Collector, Closeable {
 
 				try {
 					mBeanQuery.addDimension(dimension, dimensionConfig.getValue());
-				} catch (JmxMBeanServerQueryException e) {
+				} catch (JmxMBeanServerQueryException | NullPointerException e) {
 					log.warning(LoggingUtils
 							.buildMessage("Could not query dimension " + dimension.getName() + ". Skippint...", e));
 					continue;

@@ -50,11 +50,11 @@ public abstract class MBeanQuery {
 		try {
 			queryResult = MBeanServerUtils.getAttribute(mBeanServer, mBeanName, mBeanAttribute);
 		} catch (Exception ignore) {
-			queryResult = 0;
+			queryResult = 0D;
 		}
 
 		if (queryResult == null)
-			queryResult = 0;
+			queryResult = 0D;
 
 		if (CompositeData.class.isAssignableFrom(queryResult.getClass())) {
 			return new MBeanCompositeDataQuery(mBeanServer, mBeanName, mBeanAttribute);

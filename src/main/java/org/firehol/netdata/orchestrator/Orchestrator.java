@@ -2,6 +2,8 @@
 
 package org.firehol.netdata.orchestrator;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -40,8 +42,13 @@ public class Orchestrator implements Collector {
 			for (Chart chart : chartsToInitialize) {
 				Printer.initializeChart(chart);
 			}
-		} catch (Exception e) {
-			Main.exit(LoggingUtils.buildMessage("Could not initialize. Disabling Java Orchestrator.", e));
+		} catch (Exception e) { ;
+			String exception = "";
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			exception = sw.toString(); // stack trace as a string
+			Main.exit(LoggingUtils.buildMessage("Could not initialize. Disabling Java Orchestrator." + exception));
 		}
 
 	}

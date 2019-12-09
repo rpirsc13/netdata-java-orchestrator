@@ -4,6 +4,8 @@ package org.firehol.netdata.module.jmx;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.*;
 import java.util.logging.Logger;
 
@@ -154,7 +156,12 @@ public class MBeanServerCollector implements Collector, Closeable {
 					mBeanQuery = getMBeanQueryForName(objectName, dimensionConfig.getValue())
 							.orElse(addNewMBeanQuery(objectName, dimensionConfig.getValue()));
 				} catch (JmxMBeanServerQueryException | NullPointerException e) {
-					log.warning(LoggingUtils.buildMessage("Could not query one dimension. Skipping...", e));
+					String exception = "";
+					StringWriter sw = new StringWriter();
+					PrintWriter pw = new PrintWriter(sw);
+					e.printStackTrace(pw);
+					exception = sw.toString(); // stack trace as a string
+					log.warning(LoggingUtils.buildMessage("Could not query one dimension. Skipping...", exception));
 					continue;
 				}
 

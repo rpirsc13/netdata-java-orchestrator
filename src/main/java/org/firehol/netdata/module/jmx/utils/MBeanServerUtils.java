@@ -19,8 +19,9 @@ public final class MBeanServerUtils {
 			return mBeanServer.getAttribute(name, attribute);
 		} catch (AttributeNotFoundException | InstanceNotFoundException | MBeanException | ReflectionException
 				| IOException e) {
-			throw new JmxMBeanServerQueryException(
-					"Could not query attribute '" + attribute + "' of MBean '" + name + "'", e);
+//			throw new JmxMBeanServerQueryException(
+//					"Could not query attribute '" + attribute + "' of MBean '" + name + "'", e);
+			return 0D;
 		}
 	}
 }

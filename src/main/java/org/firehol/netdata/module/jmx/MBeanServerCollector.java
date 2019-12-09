@@ -222,6 +222,7 @@ public class MBeanServerCollector implements Collector, Closeable {
 
 	private MBeanQuery addNewMBeanQuery(final ObjectName objectName, final String valueName)
 			throws JmxMBeanServerQueryException {
+		log.warning(String.format("Calling MbeanQuery with mBeanServer: %s, objectName: %s, valueName: %s", mBeanServer, objectName, valueName));
 		final MBeanQuery query = MBeanQuery.newInstance(mBeanServer, objectName, valueName);
 		allMBeanQuery.add(query);
 		return query;

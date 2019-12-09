@@ -54,10 +54,16 @@ public class MBeanSimpleQuery extends MBeanQuery {
 
 	@Override
 	public void query() throws JmxMBeanServerQueryException {
-		Object result = 0D;
+		Object result;
 		try {
 			result = MBeanServerUtils.getAttribute(getMBeanServer(), this.getName(), this.getAttribute());
-		} catch (Exception ignore) {}
+		} catch (Exception ignore) {
+			result = 0D;
+		}
+
+		if (result == null)
+			result = 0D;
+
 		valueStore.updateValue(result);
 	}
 }

@@ -46,12 +46,12 @@ public abstract class MBeanQuery {
 	public static MBeanQuery newInstance(final MBeanServerConnection mBeanServer, final ObjectName mBeanName,
 			final String attribute) throws JmxMBeanServerQueryException {
 		final String mBeanAttribute = attribute.split("\\.", 2)[0];
-		Object queryResult = 0D;
+		Object queryResult = new Double(0);
 		try {
 			queryResult = MBeanServerUtils.getAttribute(mBeanServer, mBeanName, mBeanAttribute);
 		} catch (Exception ignore) {}
 
-		if (CompositeData.class.isAssignableFrom(queryResult.getClass())) {
+		if (queryResult != null && queryResult.getClass() != null && CompositeData.class.isAssignableFrom(queryResult.getClass())) {
 			return new MBeanCompositeDataQuery(mBeanServer, mBeanName, mBeanAttribute);
 		}
 

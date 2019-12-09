@@ -130,7 +130,7 @@ public class MBeanServerCollectorTest {
 		assertEquals(1234L, value);
 	}
 
-	@Test(expected = JmxMBeanServerQueryException.class)
+	@Test
 	public void testGetAttributeFailure() throws MalformedObjectNameException, AttributeNotFoundException,
 			InstanceNotFoundException, MBeanException, ReflectionException, IOException, JmxMBeanServerQueryException {
 		// Static Objects
